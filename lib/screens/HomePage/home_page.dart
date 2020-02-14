@@ -1,27 +1,45 @@
-import 'dart:math';
-
 import 'package:asterix/components/layout_scaffold.dart';
+import 'package:asterix/screens/HomePage/components/grid_card.dart';
+import 'package:asterix/utils/statusbar_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    setStatusBarColorYellow();
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutScaffold(
+      selected: "Home",
       children: <Widget>[
-        Placeholder(
-          fallbackHeight: ScreenUtil().setHeight(250),
+        Container(
+          margin: EdgeInsets.only(top: ScreenUtil().setHeight(60)),
+          width: ScreenUtil().setHeight(200),
+          child: FittedBox(
+            child: Image.asset(
+              "assets/58824846e81acb96424ffaad.png",
+            ),
+          ),
         ),
         SizedBox(
-          height: ScreenUtil().setHeight(20),
+          height: ScreenUtil().setHeight(30),
         ),
         Text(
           "Impossibile resistere",
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.title.copyWith(
                 fontWeight: FontWeight.bold,
-                fontSize: ScreenUtil().setHeight(23),
+                fontSize: ScreenUtil().setSp(23),
               ),
         ),
         SizedBox(
@@ -32,7 +50,7 @@ class HomePage extends StatelessWidget {
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.title.copyWith(
                 fontWeight: FontWeight.normal,
-                fontSize: ScreenUtil().setHeight(17),
+                fontSize: ScreenUtil().setSp(17),
               ),
         ),
         SizedBox(
@@ -54,26 +72,18 @@ class HomePage extends StatelessWidget {
         StaggeredGridView.countBuilder(
           physics: NeverScrollableScrollPhysics(),
           crossAxisCount: 4,
-          itemCount: 8,
+          itemCount: 7,
           shrinkWrap: true,
           padding: EdgeInsets.symmetric(
-            horizontal: ScreenUtil().setWidth(
-              13,
-            ),
+            horizontal: ScreenUtil().setWidth(8),
           ),
-          itemBuilder: (BuildContext context, int index) => new Container(
-            color: Colors.green,
-            child: Center(
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                child: Text('$index'),
-              ),
-            ),
+          itemBuilder: (BuildContext context, int index) => GridCard(
+            isLong: index.isOdd,
           ),
           staggeredTileBuilder: (int index) =>
-              StaggeredTile.count(2, index.isEven ? 4 : 3),
+              StaggeredTile.count(2, index.isOdd ? 5 : 4),
           mainAxisSpacing: 6.0,
-          crossAxisSpacing: 6.0,
+          crossAxisSpacing: 2.0,
         )
       ],
     );

@@ -1,6 +1,7 @@
 import 'package:asterix/redux/store/AppState.dart';
 import 'package:asterix/screens/HomePage/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:redux/redux.dart';
@@ -10,7 +11,8 @@ AppState counterReducer(AppState state, dynamic action) {
   return state;
 }
 
-void main() {
+void main() async {
+  await DotEnv().load('.env');
   Store<AppState> store = new Store<AppState>(
     counterReducer,
     initialState: AppState(),
@@ -36,7 +38,7 @@ class _AsterixState extends State<Asterix> {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: Color(0xFFFFB818),
-          accentColor: Color(0xFF394B00),
+          accentColor: Color(0xFF007625),
           cardColor: Colors.white,
           iconTheme: IconThemeData(
             color: Color(0xFF707070),
@@ -47,6 +49,9 @@ class _AsterixState extends State<Asterix> {
             ),
             subtitle: TextStyle(
               color: Color(0xFF949494),
+            ),
+            headline: TextStyle(
+              color: Color(0xFF707070),
             ),
           ),
         ),

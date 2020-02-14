@@ -1,10 +1,12 @@
+import 'package:asterix/components/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LayoutScaffold extends StatefulWidget {
   final List<Widget> children;
+  final String selected;
 
-  LayoutScaffold({Key key, this.children});
+  LayoutScaffold({Key key, this.children, this.selected});
 
   _LayoutScaffoldState createState() => _LayoutScaffoldState();
 }
@@ -17,42 +19,15 @@ class _LayoutScaffoldState extends State<LayoutScaffold> {
       child: Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
         key: scaffoldKey,
-        drawer: Drawer(
-          child: ListView(
-            // Important: Remove any padding from the ListView.
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                child: Text('Drawer Header'),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).accentColor,
-                ),
-              ),
-              ListTile(
-                title: Text('Item 1'),
-                onTap: () {
-                  // Update the state of the app.
-                  // ...
-                },
-              ),
-              ListTile(
-                title: Text('Item 2'),
-                onTap: () {
-                  // Update the state of the app.
-                  // ...
-                },
-              ),
-            ],
-          ),
+        drawer: CustomDrawer(
+          selected: widget.selected,
         ),
         body: Stack(
           children: <Widget>[
-            Center(
-              child: ListView(
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                children: widget.children,
-              ),
+            ListView(
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              children: widget.children,
             ),
             Positioned(
               left: 10,
