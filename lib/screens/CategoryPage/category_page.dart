@@ -1,3 +1,5 @@
+import 'package:asterix/models/Products/Product.dart';
+import 'package:asterix/network/CategoryPage/category_network.dart';
 import 'package:asterix/screens/CategoryPage/components/single_category.dart';
 import 'package:asterix/utils/statusbar_color.dart';
 import 'package:flutter/material.dart';
@@ -36,12 +38,18 @@ class _CategoryPageState extends State<CategoryPage> {
   void initState() {
     super.initState();
     setStatusBarColorGreen();
+    getProducts();
   }
 
   @override
   void dispose() {
     super.dispose();
     setStatusBarColorYellow();
+  }
+
+  Future getProducts() async {
+    Map<String, List<Product>> products = await CategoryNetwork.getProducts();
+    print(products['Antipasti'][0].name);
   }
 
   @override
