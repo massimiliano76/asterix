@@ -1,7 +1,6 @@
 import 'package:asterix/components/cart_badge.dart';
 import 'package:asterix/models/Products/CartProduct.dart';
 import 'package:asterix/models/Products/Ingredient.dart';
-import 'package:asterix/models/Products/Product.dart';
 import 'package:asterix/redux/actions/Cart/cart_actions.dart';
 import 'package:asterix/redux/actions/Product/product_action.dart';
 import 'package:asterix/redux/store/AppState.dart';
@@ -99,16 +98,23 @@ class DetailProductPage extends StatelessWidget {
                               InkWell(
                                 child: Icon(
                                   Icons.add,
+                                  color: mainColor,
                                   size: ScreenUtil().setWidth(35),
                                 ),
                                 onTap: () {
                                   store.dispatch(IncrementQuantity());
                                 },
                               ),
-                              Text(quantity.toString()),
+                              Text(
+                                quantity.toString(),
+                                style: TextStyle(
+                                  fontSize: ScreenUtil().setSp(20),
+                                ),
+                              ),
                               InkWell(
                                 child: Icon(
                                   Icons.remove,
+                                  color: mainColor,
                                   size: ScreenUtil().setWidth(35),
                                 ),
                                 onTap: () {

@@ -1,3 +1,4 @@
+import 'package:asterix/components/cart_badge.dart';
 import 'package:asterix/components/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,6 +40,14 @@ class _LayoutScaffoldState extends State<LayoutScaffold> {
                   size: ScreenUtil().setWidth(30),
                 ),
                 onPressed: () => scaffoldKey.currentState.openDrawer(),
+              ),
+            ),
+            Positioned(
+              right: 10,
+              top: 20,
+              child: CartBadge(
+                mainColor: Theme.of(context).primaryColor,
+                isCategory: true,
               ),
             ),
           ],

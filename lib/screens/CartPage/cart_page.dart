@@ -3,9 +3,11 @@ import 'package:asterix/models/Products/CartProduct.dart';
 import 'package:asterix/models/Products/Product.dart';
 import 'package:asterix/redux/actions/Product/product_action.dart';
 import 'package:asterix/redux/store/AppState.dart';
+import 'package:asterix/screens/CartPage/components/circle_button.dart';
 import 'package:asterix/utils/statusbar_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:redux/redux.dart';
 
 class CartPage extends StatefulWidget {
@@ -33,77 +35,160 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "Carrello",
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          iconTheme: IconThemeData(
-            color: Colors.white,
-          ),
-          backgroundColor: Theme.of(context).accentColor,
-        ),
-        body: StoreConnector<AppState, Store<AppState>>(
+      child: StoreConnector<AppState, Store<AppState>>(
           converter: (store) => store,
           builder: (_, store) {
             List<CartProduct> products = store.state.cart.products;
-            return ListView.builder(
-              itemCount: products.length,
-              itemBuilder: (_, int i) {
-                CartProduct cartProduct = products[i];
-                Product product = cartProduct.product;
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        children: <Widget>[
-                          Text(product.name),
-                          Text(cartProduct.finalPrice.toStringAsFixed(2) + "€ ")
-                        ],
+            return Scaffold(
+              appBar: AppBar(
+                actions: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(
+                      right: ScreenUtil().setWidth(15),
+                    ),
+                    child: Center(
+                      child: Text(
+                        store.state.cart.totalPrice.toStringAsFixed(2) + " €",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: ScreenUtil().setSp(20),
+                        ),
                       ),
                     ),
-                    Expanded(
-                      flex: 3,
-                      child: Column(
-                        children: <Widget>[
-                          Text(product.description),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              GestureDetector(
-                                child: Icon(Icons.add),
-                                onTap: () {
-                                  store.dispatch(
-                                    IncrementCartQuantity(cartProduct),
-                                  );
-                                },
-                              ),
-                              Text(cartProduct.quantity.toString()),
-                              GestureDetector(
-                                child: Icon(Icons.remove),
-                                onTap: () {
-                                  store.dispatch(
-                                    DecrementCartQuantity(cartProduct),
-                                  );
-                                },
-                              ),
-                            ],
-                          )
-                        ],
+                  )
+                ],
+                title: Text(
+                  "Carrello",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                iconTheme: IconThemeData(
+                  color: Colors.white,
+                ),
+                backgroundColor: Theme.of(context).accentColor,
+              ),
+              floatingActionButton: FloatingActionButton.extended(
+                label: Text("EFFETTUA ACQUISTO"),
+                icon: Icon(
+                  Icons.fastfood,
+                  color: Colors.white,
+                ),
+                onPressed: () {},
+              ),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.centerFloat,
+              body: ListView.builder(
+                itemCount: products.length,
+                itemBuilder: (_, int i) {
+                  CartProduct cartProduct = products[i];
+                  Product product = cartProduct.product;
+                  return Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: ScreenUtil().setHeight(15),
+                    ),
+                    margin: EdgeInsets.only(
+                      left: ScreenUtil().setWidth(8),
+                      right: ScreenUtil().setWidth(8),
+                      top: ScreenUtil().setWidth(15),
+                    ),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Color(0xAAFFFFFF), Colors.white],
+                        tileMode: TileMode.repeated,
                       ),
-                    )
-                  ],
-                );
-              },
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0x11FFFFFF),
+                          blurRadius: 10.0,
+                          offset: Offset(0, 10),
+                        ),
+                      ],
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                product.name,
+                                textAlign: TextAlign.center,
+                              ),
+                              SizedBox(
+                                height: ScreenUtil().setHeight(5),
+                              ),
+                              Text(
+                                cartProduct.finalPrice.toStringAsFixed(2) +
+                                    "€ ",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: ScreenUtil().setSp(16),
+                                  color: Theme.of(context).accentColor,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3,
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                product.description,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: ScreenUtil().setSp(16),
+                                ),
+                              ),
+                              SizedBox(
+                                height: ScreenUtil().setHeight(10),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  CircleButton(
+                                    icon: Icon(
+                                      Icons.add,
+                                      color: Theme.of(context).accentColor,
+                                    ),
+                                    onTap: () {
+                                      store.dispatch(
+                                        IncrementCartQuantity(cartProduct),
+                                      );
+                                    },
+                                  ),
+                                  Text(cartProduct.quantity.toString()),
+                                  CircleButton(
+                                    icon: Icon(
+                                      Icons.remove,
+                                      color: Theme.of(context).accentColor,
+                                    ),
+                                    onTap: () {
+                                      store.dispatch(
+                                        DecrementCartQuantity(cartProduct),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                },
+              ),
             );
-          },
-        ),
-      ),
+          }),
     );
   }
 }

@@ -14,8 +14,8 @@ class CartProduct {
         finalPrice = product.price,
         quantity = 1;
 
-  incrementQuantity() {
-    quantity++;
+  incrementQuantity([int increase]) {
+    quantity += increase ?? 1;
     finalPrice = product.price * quantity;
   }
 

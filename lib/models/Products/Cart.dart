@@ -25,7 +25,15 @@ class Cart {
   }
 
   addProduct(CartProduct newProduct) {
-    products.add(newProduct);
+    try {
+      //index of the element already present
+      int index = products.indexOf(
+        products.firstWhere((el) => el.product.id == newProduct.product.id),
+      );
+      products[index].incrementQuantity(newProduct.quantity);
+    } catch (e) {
+      products.add(newProduct);
+    }
     totalPrice += newProduct.finalPrice;
     totalProduct += newProduct.quantity;
   }
