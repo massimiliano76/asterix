@@ -3,7 +3,7 @@ import 'package:asterix/models/Products/Ingredient.dart';
 class Product {
   final int id;
   final String name;
-  final double price;
+  double price;
   final String category;
   final String description;
   final List<Ingredient> ingredients;

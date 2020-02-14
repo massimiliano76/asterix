@@ -1,6 +1,8 @@
 import 'dart:math' as math;
 import 'package:asterix/components/cart_badge.dart';
+import 'package:asterix/models/Products/CartProduct.dart';
 import 'package:asterix/models/Products/Product.dart';
+import 'package:asterix/redux/actions/Cart/cart_actions.dart';
 import 'package:asterix/redux/store/AppState.dart';
 import 'package:asterix/screens/DetailProductPage/detail_product_page.dart';
 import 'package:asterix/utils/statusbar_color.dart';
@@ -101,61 +103,62 @@ class _DetailPageState extends State<DetailPage> {
               }),
             ),
             StoreConnector<AppState, Store<AppState>>(
-                converter: (store) => store,
-                builder: (context, store) {
-                  return SliverList(
-                    delegate: SliverChildListDelegate(
-                        widget.products.map((Product product) {
-                      return ListTile(
-                        isThreeLine: true,
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: ScreenUtil().setWidth(30),
-                          vertical: ScreenUtil().setHeight(3),
+              converter: (store) => store,
+              builder: (context, store) {
+                return SliverList(
+                  delegate: SliverChildListDelegate(
+                      widget.products.map((Product product) {
+                    return ListTile(
+                      isThreeLine: true,
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: ScreenUtil().setWidth(30),
+                        vertical: ScreenUtil().setHeight(3),
+                      ),
+                      title: Text(
+                        product.name,
+                        style: TextStyle(
+                          fontSize: ScreenUtil().setSp(19),
                         ),
-                        title: Text(
-                          product.name,
-                          style: TextStyle(
-                            fontSize: ScreenUtil().setSp(19),
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            product.description,
+                            style: TextStyle(
+                              fontSize: ScreenUtil().setSp(17),
+                            ),
                           ),
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              product.description,
-                              style: TextStyle(
-                                fontSize: ScreenUtil().setSp(17),
-                              ),
+                          SizedBox(height: ScreenUtil().setHeight(5)),
+                          Text(
+                            "€ " + product.price.toStringAsFixed(2),
+                            style: TextStyle(
+                              fontSize: ScreenUtil().setSp(18),
+                              color: widget.sbColor,
                             ),
-                            SizedBox(height: ScreenUtil().setHeight(5)),
-                            Text(
-                              "€ " + product.price.toStringAsFixed(2),
-                              style: TextStyle(
-                                fontSize: ScreenUtil().setSp(18),
-                                color: widget.sbColor,
-                              ),
-                            )
-                          ],
-                        ),
-                        trailing: Icon(
-                          Icons.add_circle,
-                          color: widget.sbColor,
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => DetailProductPage(
-                                mainColor: widget.sbColor,
-                                product: product,
-                              ),
+                          )
+                        ],
+                      ),
+                      trailing: Icon(
+                        Icons.add_circle,
+                        color: widget.sbColor,
+                      ),
+                      onTap: () {
+                        store.dispatch(SelectProduct(CartProduct(product)));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => DetailProductPage(
+                              mainColor: widget.sbColor,
                             ),
-                          );
-                        },
-                      );
-                    }).toList()),
-                  );
-                }),
+                          ),
+                        );
+                      },
+                    );
+                  }).toList()),
+                );
+              },
+            ),
           ],
         ),
       ),

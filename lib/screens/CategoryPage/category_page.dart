@@ -142,26 +142,36 @@ class _CategoryPageState extends State<CategoryPage> {
             Positioned(
               top: ScreenUtil().setHeight(30),
               left: ScreenUtil().setWidth(20),
+              right: 0,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  GestureDetector(
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                      size: ScreenUtil().setWidth(28),
-                    ),
-                    onTap: () => Navigator.pop(context),
+                  Row(
+                    children: <Widget>[
+                      GestureDetector(
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                          size: ScreenUtil().setWidth(28),
+                        ),
+                        onTap: () => Navigator.pop(context),
+                      ),
+                      SizedBox(
+                        width: ScreenUtil().setWidth(25),
+                      ),
+                      Text(
+                        "Categorie",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: ScreenUtil().setSp(26),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    width: ScreenUtil().setWidth(25),
-                  ),
-                  Text(
-                    "Categorie",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: ScreenUtil().setSp(26),
-                      fontWeight: FontWeight.w600,
-                    ),
+                  CartBadge(
+                    isCategory: true,
+                    mainColor: Theme.of(context).accentColor,
                   ),
                 ],
               ),

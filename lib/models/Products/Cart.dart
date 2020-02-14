@@ -5,10 +5,29 @@ class Cart {
   double totalPrice = 0.00;
   int totalProduct = 0;
 
+  incrementSingleProduct(CartProduct findProduct) {
+    int index = products.indexOf(findProduct);
+    products[index].incrementQuantity();
+
+    totalPrice += findProduct.product.price;
+    totalProduct++;
+  }
+
+  decrementSingleProduct(CartProduct product) {
+    if (product.quantity == 1) {
+      products.remove(product);
+    } else {
+      int index = products.indexOf(product);
+      products[index].decrementQuantity();
+    }
+    totalPrice -= product.product.price;
+    totalProduct--;
+  }
+
   addProduct(CartProduct newProduct) {
     products.add(newProduct);
-    totalPrice += newProduct.product.price;
-    totalProduct++;
+    totalPrice += newProduct.finalPrice;
+    totalProduct += newProduct.quantity;
   }
 
   removeProduct(CartProduct removeProduct) {
