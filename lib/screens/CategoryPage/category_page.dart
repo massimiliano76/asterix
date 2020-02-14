@@ -1,3 +1,5 @@
+import 'package:asterix/components/cart_badge.dart';
+import 'package:asterix/models/Products/Category.dart';
 import 'package:asterix/models/Products/Product.dart';
 import 'package:asterix/network/CategoryPage/category_network.dart';
 import 'package:asterix/screens/CategoryPage/components/single_category.dart';
@@ -5,40 +7,19 @@ import 'package:asterix/utils/statusbar_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CategoryModel {
-  final String title;
-  final String subtitle;
-  final String url;
-  final double bottomImage;
-  final double rightImage;
-  final double widthImage;
-  final Gradient backgroundColor;
-  final Color mainColor;
-  final bool rotate;
-
-  CategoryModel(
-      {this.mainColor,
-      this.bottomImage,
-      this.rightImage,
-      this.widthImage,
-      this.title,
-      this.subtitle,
-      this.url,
-      this.backgroundColor,
-      this.rotate = false});
-}
-
 class CategoryPage extends StatefulWidget {
   @override
   _CategoryPageState createState() => _CategoryPageState();
 }
 
 class _CategoryPageState extends State<CategoryPage> {
+  Future<Map<String, List<Product>>> products;
+
   @override
   void initState() {
     super.initState();
     setStatusBarColorGreen();
-    getProducts();
+    products = getProducts();
   }
 
   @override
@@ -47,16 +28,16 @@ class _CategoryPageState extends State<CategoryPage> {
     setStatusBarColorYellow();
   }
 
-  Future getProducts() async {
-    Map<String, List<Product>> products = await CategoryNetwork.getProducts();
-    print(products['Antipasti'][0].name);
+  Future<Map<String, List<Product>>> getProducts() async {
+    Map<String, List<Product>> list = await CategoryNetwork.getProducts();
+    return list;
   }
 
   @override
   Widget build(BuildContext context) {
     final List<CategoryModel> categories = [
       CategoryModel(
-          title: "Inventa",
+          title: "Pizze Classiche",
           subtitle: "Componi il tuo\npanino",
           url:
               "https://rmhcmaine.org/wp-content/uploads/2017/06/static-happy-meal-box.png",
@@ -69,7 +50,7 @@ class _CategoryPageState extends State<CategoryPage> {
           ),
           rotate: true),
       CategoryModel(
-        title: "Assapora",
+        title: "Antipasti",
         subtitle: "Scegli il tuo\nantipasto",
         url:
             "https://www.stickpng.com/assets/images/585ac06b4f6ae202fedf293b.png",
@@ -86,7 +67,7 @@ class _CategoryPageState extends State<CategoryPage> {
         rotate: true,
       ),
       CategoryModel(
-        title: "Bevi",
+        title: "Pizze con Bufala",
         subtitle: "Scegli la tua\nbibita",
         url:
             "https://m.mcdonalds.co.uk/content/dam/mcdonaldsuk/item/live/mcdonalds-Vanilla-Milkshake-Medium.png",
@@ -109,28 +90,54 @@ class _CategoryPageState extends State<CategoryPage> {
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
-                  color: Theme.of(context).accentColor,
-                  borderRadius:
-                      BorderRadius.vertical(bottom: Radius.circular(30))),
+                color: Theme.of(context).accentColor,
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(30),
+                ),
+              ),
               height: ScreenUtil().setHeight(230),
             ),
-            Container(
-              margin: EdgeInsets.only(top: ScreenUtil().setHeight(75)),
-              child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: categories.length,
-                itemBuilder: (_, i) {
-                  CategoryModel model = categories[i];
-                  return Padding(
-                    padding: EdgeInsets.only(
-                      top: i == 0 ? ScreenUtil().setHeight(25) : 0,
-                    ),
-                    child: SingleCategory(
-                      categoryModel: model,
-                    ),
-                  );
-                },
-              ),
+            FutureBuilder(
+              future: products,
+              builder: (_, AsyncSnapshot<Map<String, List<Product>>> snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.none:
+                  case ConnectionState.waiting:
+                  case ConnectionState.active:
+                    return Align(
+                      child: CircularProgressIndicator(),
+                    );
+                  case ConnectionState.done:
+                    if (snapshot.hasError) {
+                      return Align(
+                        child: Text(snapshot.error.toString()),
+                      );
+                    }
+
+                    return Container(
+                      margin: EdgeInsets.only(top: ScreenUtil().setHeight(75)),
+                      child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: categories.length,
+                        itemBuilder: (_, i) {
+                          CategoryModel model = categories[i];
+                          return Padding(
+                            padding: EdgeInsets.only(
+                              top: i == 0 ? ScreenUtil().setHeight(25) : 0,
+                            ),
+                            child: SingleCategory(
+                              categoryModel: model,
+                              products: snapshot.data[model.title],
+                            ),
+                          );
+                        },
+                      ),
+                    );
+
+                  default:
+                    return SizedBox.shrink();
+                }
+              },
             ),
             Positioned(
               top: ScreenUtil().setHeight(30),

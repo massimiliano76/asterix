@@ -1,3 +1,4 @@
+import 'package:asterix/redux/reducers/index.dart';
 import 'package:asterix/redux/store/AppState.dart';
 import 'package:asterix/screens/HomePage/home_page.dart';
 import 'package:flutter/material.dart';
@@ -6,15 +7,10 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:redux/redux.dart';
 
-//TODO: to remove
-AppState counterReducer(AppState state, dynamic action) {
-  return state;
-}
-
 void main() async {
   await DotEnv().load('.env');
   Store<AppState> store = new Store<AppState>(
-    counterReducer,
+    reducers,
     initialState: AppState(),
   );
   runApp(Asterix(store: store));

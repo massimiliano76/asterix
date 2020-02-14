@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
-
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'errors.dart';
@@ -17,7 +15,7 @@ class MakeRequest {
     'Content-Type': 'application/json',
   };
 
-  static get(String endpoint) async {
+  static Future get(String endpoint) async {
     try {
       http.Response response = await http.get(url + endpoint, headers: header);
       final responseJson = await jsonDecode(response.body);

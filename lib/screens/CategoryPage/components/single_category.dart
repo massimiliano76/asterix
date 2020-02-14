@@ -1,13 +1,15 @@
 import 'dart:math' as math;
-import 'package:asterix/screens/CategoryPage/category_page.dart';
+import 'package:asterix/models/Products/Category.dart';
+import 'package:asterix/models/Products/Product.dart';
 import 'package:asterix/screens/DetailPage/detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SingleCategory extends StatelessWidget {
   final CategoryModel categoryModel;
+  final List<Product> products;
 
-  SingleCategory({this.categoryModel});
+  SingleCategory({this.categoryModel, this.products});
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +91,7 @@ class SingleCategory extends StatelessWidget {
               gradient: categoryModel.backgroundColor,
               rotate: categoryModel.rotate,
               sbColor: categoryModel.mainColor,
+              products: products,
             ),
           ),
         );

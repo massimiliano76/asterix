@@ -1,17 +1,29 @@
 import 'dart:math' as math;
+import 'package:asterix/components/cart_badge.dart';
+import 'package:asterix/models/Products/Product.dart';
+import 'package:asterix/redux/store/AppState.dart';
+import 'package:asterix/screens/DetailProductPage/detail_product_page.dart';
 import 'package:asterix/utils/statusbar_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:redux/redux.dart';
 
 class DetailPage extends StatefulWidget {
   final String url;
   final Gradient gradient;
   final Color sbColor;
   final bool rotate;
+  final List<Product> products;
 
-  const DetailPage(
-      {Key key, this.url, this.gradient, this.rotate, this.sbColor})
-      : super(key: key);
+  const DetailPage({
+    Key key,
+    this.url,
+    this.gradient,
+    this.rotate,
+    this.sbColor,
+    this.products,
+  }) : super(key: key);
 
   @override
   _DetailPageState createState() => _DetailPageState();
@@ -40,6 +52,11 @@ class _DetailPageState extends State<DetailPage> {
               iconTheme: IconThemeData(
                 color: Colors.white,
               ),
+              actions: <Widget>[
+                CartBadge(
+                  mainColor: widget.sbColor,
+                ),
+              ],
               pinned: true,
               backgroundColor: widget.sbColor,
               expandedHeight: ScreenUtil().setHeight(300),
@@ -50,7 +67,6 @@ class _DetailPageState extends State<DetailPage> {
                   centerTitle: true,
                   title: AnimatedOpacity(
                     duration: Duration(milliseconds: 300),
-                    //opacity: top == 80.0 ? 1.0 : 0.0,
                     opacity: 1.0,
                   ),
                   background: Container(
@@ -84,54 +100,62 @@ class _DetailPageState extends State<DetailPage> {
                 );
               }),
             ),
-            SliverList(
-              delegate: SliverChildListDelegate(
-                List.generate(
-                  50,
-                  (i) => Padding(
-                    padding: EdgeInsets.only(
-                        top: i == 0 ? ScreenUtil().setHeight(20) : 0),
-                    child: ListTile(
-                      isThreeLine: true,
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: ScreenUtil().setWidth(30),
-                        vertical: ScreenUtil().setHeight(3),
-                      ),
-                      title: Text(
-                        "Crudo e Bufala",
-                        style: TextStyle(
-                          fontSize: ScreenUtil().setSp(19),
+            StoreConnector<AppState, Store<AppState>>(
+                converter: (store) => store,
+                builder: (context, store) {
+                  return SliverList(
+                    delegate: SliverChildListDelegate(
+                        widget.products.map((Product product) {
+                      return ListTile(
+                        isThreeLine: true,
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: ScreenUtil().setWidth(30),
+                          vertical: ScreenUtil().setHeight(3),
                         ),
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Prosciutto Crudo, Mozzarella Di Bufala",
-                            style: TextStyle(
-                              fontSize: ScreenUtil().setSp(17),
-                            ),
+                        title: Text(
+                          product.name,
+                          style: TextStyle(
+                            fontSize: ScreenUtil().setSp(19),
                           ),
-                          SizedBox(height: ScreenUtil().setHeight(5)),
-                          Text(
-                            "€ 8,00",
-                            style: TextStyle(
-                              fontSize: ScreenUtil().setSp(18),
-                              color: widget.sbColor,
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              product.description,
+                              style: TextStyle(
+                                fontSize: ScreenUtil().setSp(17),
+                              ),
                             ),
-                          )
-                        ],
-                      ),
-                      trailing: Icon(
-                        Icons.add_circle,
-                        color: widget.sbColor,
-                      ),
-                      onTap: () {},
-                    ),
-                  ),
-                ),
-              ),
-            ),
+                            SizedBox(height: ScreenUtil().setHeight(5)),
+                            Text(
+                              "€ " + product.price.toStringAsFixed(2),
+                              style: TextStyle(
+                                fontSize: ScreenUtil().setSp(18),
+                                color: widget.sbColor,
+                              ),
+                            )
+                          ],
+                        ),
+                        trailing: Icon(
+                          Icons.add_circle,
+                          color: widget.sbColor,
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => DetailProductPage(
+                                mainColor: widget.sbColor,
+                                product: product,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }).toList()),
+                  );
+                }),
           ],
         ),
       ),
