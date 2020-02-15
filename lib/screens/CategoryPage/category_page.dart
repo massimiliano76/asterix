@@ -22,6 +22,12 @@ class _CategoryPageState extends State<CategoryPage> {
     products = getProducts();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    setStatusBarColorYellow();
+  }
+
   Future<Map<String, List<Product>>> getProducts() async {
     Map<String, List<Product>> list = await CategoryNetwork.getProducts();
     return list;
