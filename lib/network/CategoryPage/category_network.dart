@@ -1,4 +1,7 @@
 import 'package:asterix/api/make_request.dart';
+import 'package:asterix/models/Local/DataWrapper.dart';
+import 'package:asterix/models/Local/LocalInfo.dart';
+import 'package:asterix/models/Products/Ingredient.dart';
 import 'package:asterix/models/Products/Product.dart';
 
 class CategoryNetwork {
@@ -24,5 +27,19 @@ class CategoryNetwork {
     } catch (e) {
       print(e);
     }
+  }
+
+  static Future<DataWrapper> getAddons() async {
+    dynamic decodedJson = await MakeRequest.get("whoami");
+    LocalInfo localInfo = LocalInfo.fromJson(decodedJson);
+    List jsonAddons = decodedJson['ingredients'];
+    List<Ingredient> addons = jsonAddons.map<Ingredient>(
+      (el) {
+        print(el);
+        return Ingredient.fromJson(el);
+      },
+    ).toList();
+    DataWrapper dataWrapper = DataWrapper(localInfo, addons);
+    return dataWrapper;
   }
 }

@@ -1,4 +1,3 @@
-import 'package:asterix/models/Products/Cart.dart';
 import 'package:asterix/models/Products/CartProduct.dart';
 import 'package:asterix/models/Products/Product.dart';
 import 'package:asterix/redux/actions/Product/product_action.dart';
@@ -80,6 +79,9 @@ class _CartPageState extends State<CartPage> {
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerFloat,
               body: ListView.builder(
+                padding: EdgeInsets.only(
+                  bottom: ScreenUtil().setHeight(80),
+                ),
                 itemCount: products.length,
                 itemBuilder: (_, int i) {
                   CartProduct cartProduct = products[i];

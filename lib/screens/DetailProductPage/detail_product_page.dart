@@ -22,6 +22,7 @@ class DetailProductPage extends StatelessWidget {
       child: StoreConnector<AppState, Store<AppState>>(
         converter: (store) => store,
         builder: (context, store) {
+          List<Ingredient> addons = store.state.addons;
           CartProduct product = store.state.currentlySelected;
           int quantity = store.state.currentlySelected.quantity;
           return Scaffold(
@@ -148,6 +149,24 @@ class DetailProductPage extends StatelessWidget {
                           style: TextStyle(
                             fontSize: ScreenUtil().setSp(18),
                           ),
+                        ),
+                        ColumnBuilder(
+                          itemCount: addons.length,
+                          itemBuilder: (_, i) {
+                            Ingredient ingredient = addons[i];
+                            try {
+                              product.ingredients.firstWhere(
+                                (el) => el.isEqual(ingredient),
+                              );
+                              return SizedBox.shrink();
+                            } catch (e) {
+                              return SingleIngredient(
+                                ingredient: ingredient,
+                                isAddon: true,
+                                mainColor: mainColor,
+                              );
+                            }
+                          },
                         ),
                         //List
                       ],

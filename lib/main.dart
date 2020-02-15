@@ -1,3 +1,6 @@
+import 'package:asterix/models/Local/DataWrapper.dart';
+import 'package:asterix/network/CategoryPage/category_network.dart';
+import 'package:asterix/redux/actions/Local/local_action.dart';
 import 'package:asterix/redux/reducers/index.dart';
 import 'package:asterix/redux/store/AppState.dart';
 import 'package:asterix/screens/HomePage/home_page.dart';
@@ -27,6 +30,17 @@ class Asterix extends StatefulWidget {
 
 class _AsterixState extends State<Asterix> {
   @override
+  void initState() {
+    super.initState();
+    saveData();
+  }
+
+  Future saveData() async {
+    DataWrapper newData = await CategoryNetwork.getAddons();
+    widget.store.dispatch(SaveInfo(newData));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StoreProvider(
       store: widget.store,
@@ -54,7 +68,6 @@ class _AsterixState extends State<Asterix> {
         home: Builder(
           builder: (context) {
             Size size = MediaQuery.of(context).size;
-
             ScreenUtil.init(context, width: size.width, height: size.height);
 
             return HomePage();

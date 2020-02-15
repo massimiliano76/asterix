@@ -9,8 +9,22 @@ class Ingredient {
 
   Ingredient.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        shopId = json['shopId'],
+        shopId = json['shop_id'],
         name = json['name'],
-        price = double.parse(json['price']),
+        price = double.parse(json['price'].toString()),
         category = json['category'];
+
+  @override
+  String toString() {
+    return "$id: $shopId, $name, $price, $category";
+  }
+
+  bool isEqual(Ingredient compare) {
+    if (id == compare.id &&
+        shopId == compare.shopId &&
+        name == compare.name &&
+        price == compare.price &&
+        category == compare.category) return true;
+    return false;
+  }
 }
