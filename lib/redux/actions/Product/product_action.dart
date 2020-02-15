@@ -2,7 +2,6 @@ import 'package:asterix/models/Products/CartProduct.dart';
 import 'package:asterix/models/Products/Ingredient.dart';
 
 enum ProductActions {
-  SelectProduct,
   IncCurrentQuantity,
   DecCurrentQuantity,
   AddIngredients,
@@ -36,14 +35,13 @@ class DecrementQuantity {
 class AddIngredients {
   Ingredient payload;
   ProductActions type = ProductActions.AddIngredients;
+
+  AddIngredients(this.payload);
 }
 
 class RemoveIngredients {
   Ingredient payload;
   ProductActions type = ProductActions.RemoveIngredients;
-}
 
-class SelectProduct {
-  CartProduct product;
-  ProductActions type = ProductActions.SelectProduct;
+  RemoveIngredients(this.payload);
 }

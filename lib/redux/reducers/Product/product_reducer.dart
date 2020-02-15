@@ -5,13 +5,6 @@ import 'package:asterix/redux/store/AppState.dart';
 
 AppState productReducer(AppState prevState, dynamic action) {
   switch (action.type) {
-    case ProductActions.SelectProduct:
-      AppState newState = prevState;
-      CartProduct newProd = action.payload as CartProduct;
-
-      newState.currentlySelected = newProd;
-
-      return newState;
     case ProductActions.IncCurrentQuantity:
       AppState newState = prevState;
 

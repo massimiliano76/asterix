@@ -85,8 +85,10 @@ class DetailProductPage extends StatelessWidget {
                   ),
                   Expanded(
                     child: ListView(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: ScreenUtil().setWidth(20),
+                      padding: EdgeInsets.only(
+                        left: ScreenUtil().setWidth(20),
+                        right: ScreenUtil().setWidth(20),
+                        bottom: ScreenUtil().setWidth(70),
                       ),
                       children: <Widget>[
                         Padding(
@@ -132,13 +134,15 @@ class DetailProductPage extends StatelessWidget {
                           ),
                         ),
                         ColumnBuilder(
-                          itemCount: product.ingredients.length,
-                          itemBuilder: (_, i) {
-                            Ingredient ingredient = product.ingredients[i];
+                          itemCount: product.product.ingredients.length,
+                          itemBuilder: (_, int i) {
+                            Ingredient ingredient =
+                                product.product.ingredients[i];
                             return SingleIngredient(
                               ingredient: ingredient,
                               isAddon: false,
                               mainColor: mainColor,
+                              store: store,
                             );
                           },
                         ),
@@ -155,8 +159,10 @@ class DetailProductPage extends StatelessWidget {
                           itemBuilder: (_, i) {
                             Ingredient ingredient = addons[i];
                             try {
-                              product.ingredients.firstWhere(
-                                (el) => el.isEqual(ingredient),
+                              product.product.ingredients.firstWhere(
+                                (el) => el.isEqual(
+                                  ingredient,
+                                ),
                               );
                               return SizedBox.shrink();
                             } catch (e) {
@@ -164,6 +170,7 @@ class DetailProductPage extends StatelessWidget {
                                 ingredient: ingredient,
                                 isAddon: true,
                                 mainColor: mainColor,
+                                store: store,
                               );
                             }
                           },

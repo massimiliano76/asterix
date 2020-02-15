@@ -12,9 +12,6 @@ AppState localReducer(AppState prevState, dynamic action) {
       newState.localInfo = newInfo.localInfo;
       newState.addons = newInfo.addons;
 
-      print(newState.localInfo.toString());
-      print(newState.addons.toString());
-
       return newState;
   }
 

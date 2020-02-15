@@ -18,6 +18,6 @@ class Product {
         category = json['category'],
         description = json['description'],
         ingredients = json['ingredients']
-            .map<Ingredient>((el) => Ingredient.fromJson(el))
+            .map<Ingredient>((el) => Ingredient.fromJson(el, false))
             .toList();
 }

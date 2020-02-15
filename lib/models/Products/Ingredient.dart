@@ -4,10 +4,18 @@ class Ingredient {
   final String name;
   final double price;
   final String category;
+  final bool isAddon;
 
-  Ingredient(this.id, this.shopId, this.name, this.price, this.category);
+  Ingredient(
+    this.id,
+    this.shopId,
+    this.name,
+    this.price,
+    this.category,
+    this.isAddon,
+  );
 
-  Ingredient.fromJson(Map<String, dynamic> json)
+  Ingredient.fromJson(Map<String, dynamic> json, this.isAddon)
       : id = json['id'],
         shopId = json['shop_id'],
         name = json['name'],

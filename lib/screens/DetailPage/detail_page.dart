@@ -144,7 +144,11 @@ class _DetailPageState extends State<DetailPage> {
                         color: widget.sbColor,
                       ),
                       onTap: () {
-                        store.dispatch(SelectProduct(CartProduct(product)));
+                        store.dispatch(
+                          SelectProduct(
+                            CartProduct(product),
+                          ),
+                        );
                         Navigator.push(
                           context,
                           MaterialPageRoute(

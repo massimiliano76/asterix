@@ -1,14 +1,18 @@
 import 'package:asterix/models/Products/Ingredient.dart';
+import 'package:asterix/redux/actions/Product/product_action.dart';
+import 'package:asterix/redux/store/AppState.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:redux/redux.dart';
 
 class SingleIngredient extends StatefulWidget {
   final Ingredient ingredient;
   final bool isAddon;
   final Color mainColor;
+  final Store<AppState> store;
 
   const SingleIngredient(
-      {Key key, this.ingredient, this.isAddon, this.mainColor})
+      {Key key, this.ingredient, this.isAddon, this.mainColor, this.store})
       : super(key: key);
 
   @override
@@ -50,9 +54,21 @@ class _SingleIngredientState extends State<SingleIngredient> {
         ],
       ),
       onTap: () {
-        setState(() {
-          isPlus = !isPlus;
-        });
+        if (isPlus) {
+          widget.store.dispatch(
+            AddIngredients(ingredient),
+          );
+          setState(() {
+            isPlus = false;
+          });
+        } else {
+          widget.store.dispatch(
+            RemoveIngredients(ingredient),
+          );
+          setState(() {
+            isPlus = true;
+          });
+        }
       },
     );
   }

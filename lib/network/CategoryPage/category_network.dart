@@ -36,7 +36,7 @@ class CategoryNetwork {
     List<Ingredient> addons = jsonAddons.map<Ingredient>(
       (el) {
         print(el);
-        return Ingredient.fromJson(el);
+        return Ingredient.fromJson(el, true);
       },
     ).toList();
     DataWrapper dataWrapper = DataWrapper(localInfo, addons);
