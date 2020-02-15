@@ -3,6 +3,7 @@ import 'package:asterix/models/Products/Product.dart';
 import 'package:asterix/redux/actions/Product/product_action.dart';
 import 'package:asterix/redux/store/AppState.dart';
 import 'package:asterix/screens/CartPage/components/circle_button.dart';
+import 'package:asterix/screens/CartPage/components/product_card.dart';
 import 'package:asterix/screens/CategoryPage/category_page.dart';
 import 'package:asterix/utils/statusbar_color.dart';
 import 'package:flutter/material.dart';
@@ -72,18 +73,18 @@ class _CartPageState extends State<CartPage> {
             ),
             floatingActionButton: Builder(
               builder: (context) {
-                if (!isCartEmpty) {
-                  FloatingActionButton.extended(
-                    label: Text("EFFETTUA ACQUISTO"),
-                    icon: Icon(
-                      Icons.fastfood,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {},
-                  );
+                if (isCartEmpty) {
+                  return SizedBox.shrink();
                 }
 
-                return SizedBox.shrink();
+                return FloatingActionButton.extended(
+                  label: Text("EFFETTUA ACQUISTO"),
+                  icon: Icon(
+                    Icons.fastfood,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {},
+                );
               },
             ),
             floatingActionButtonLocation:
@@ -135,110 +136,10 @@ class _CartPageState extends State<CartPage> {
                   itemBuilder: (_, int i) {
                     CartProduct cartProduct = products[i];
                     Product product = cartProduct.product;
-                    return Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: ScreenUtil().setHeight(15),
-                      ),
-                      margin: EdgeInsets.only(
-                        left: ScreenUtil().setWidth(8),
-                        right: ScreenUtil().setWidth(8),
-                        top: ScreenUtil().setWidth(15),
-                      ),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Color(0xAAFFFFFF), Colors.white],
-                          tileMode: TileMode.repeated,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0x11FFFFFF),
-                            blurRadius: 10.0,
-                            offset: Offset(0, 10),
-                          ),
-                        ],
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Expanded(
-                            flex: 1,
-                            child: Column(
-                              children: <Widget>[
-                                Text(
-                                  product.name,
-                                  textAlign: TextAlign.center,
-                                ),
-                                SizedBox(
-                                  height: ScreenUtil().setHeight(5),
-                                ),
-                                Text(
-                                  cartProduct.finalPrice.toStringAsFixed(2) +
-                                      "€ ",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: ScreenUtil().setSp(16),
-                                    color: Theme.of(context).accentColor,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: Column(
-                              children: <Widget>[
-                                Text(
-                                  cartProduct.ingredientsText,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: ScreenUtil().setSp(16),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: ScreenUtil().setHeight(10),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    CircleButton(
-                                      icon: Icon(
-                                        Icons.add,
-                                        color: Theme.of(context).accentColor,
-                                      ),
-                                      onTap: () {
-                                        store.dispatch(
-                                          IncrementCartQuantity(cartProduct),
-                                        );
-                                      },
-                                    ),
-                                    Text(cartProduct.quantity.toString()),
-                                    CircleButton(
-                                      icon: Icon(
-                                        Icons.remove,
-                                        color: Theme.of(context).accentColor,
-                                      ),
-                                      onTap: () {
-                                        store.dispatch(
-                                          DecrementCartQuantity(cartProduct),
-                                        );
-                                        if (store.state.cart.totalProduct ==
-                                            0) {
-                                          Navigator.pop(context);
-                                        }
-                                      },
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
+                    return ProductCart(
+                      store: store,
+                      product: product,
+                      cartProduct: cartProduct,
                     );
                   },
                 );

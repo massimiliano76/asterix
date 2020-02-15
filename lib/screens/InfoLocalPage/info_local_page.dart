@@ -54,7 +54,7 @@ class InfoLocalPage extends StatelessWidget {
                         'FuddApp',
                         style: TextStyle(
                           letterSpacing: 1,
-                          fontSize: ScreenUtil().setSp(30),
+                          fontSize: ScreenUtil().setSp(28),
                         ),
                       ),
                       SizedBox(
@@ -87,7 +87,7 @@ class InfoLocalPage extends StatelessWidget {
                                     child: Text(
                                       info.email,
                                       style: TextStyle(
-                                        fontSize: ScreenUtil().setSp(16),
+                                        fontSize: ScreenUtil().setSp(14),
                                         color: Colors.blue,
                                         decoration: TextDecoration.underline,
                                       ),
@@ -101,7 +101,7 @@ class InfoLocalPage extends StatelessWidget {
                               child: Text(
                                 info.address,
                                 style: TextStyle(
-                                  fontSize: ScreenUtil().setSp(16),
+                                  fontSize: ScreenUtil().setSp(15),
                                 ),
                               ),
                             ),

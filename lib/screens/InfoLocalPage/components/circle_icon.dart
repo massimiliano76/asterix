@@ -9,14 +9,22 @@ class CircleIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      child: Icon(
-        icon,
-        color: Colors.white,
-        size: ScreenUtil().setWidth(30),
+    return Material(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      color: backgroundColor,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(30),
+        child: CircleAvatar(
+          child: Icon(
+            icon,
+            color: Colors.white,
+            size: ScreenUtil().setWidth(30),
+          ),
+          radius: ScreenUtil().setWidth(30),
+          backgroundColor: Colors.transparent,
+        ),
+        onTap: () {},
       ),
-      radius: ScreenUtil().setWidth(30),
-      backgroundColor: backgroundColor,
     );
   }
 }

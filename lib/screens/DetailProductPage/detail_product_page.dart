@@ -100,12 +100,12 @@ class DetailProductPage extends StatelessWidget {
                             children: <Widget>[
                               InkWell(
                                 child: Icon(
-                                  Icons.add,
+                                  Icons.remove,
                                   color: mainColor,
                                   size: ScreenUtil().setWidth(35),
                                 ),
                                 onTap: () {
-                                  store.dispatch(IncrementQuantity());
+                                  store.dispatch(DecrementQuantity());
                                 },
                               ),
                               Text(
@@ -116,12 +116,12 @@ class DetailProductPage extends StatelessWidget {
                               ),
                               InkWell(
                                 child: Icon(
-                                  Icons.remove,
+                                  Icons.add,
                                   color: mainColor,
                                   size: ScreenUtil().setWidth(35),
                                 ),
                                 onTap: () {
-                                  store.dispatch(DecrementQuantity());
+                                  store.dispatch(IncrementQuantity());
                                 },
                               ),
                             ],
