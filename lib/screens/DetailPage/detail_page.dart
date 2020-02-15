@@ -117,7 +117,7 @@ class _DetailPageState extends State<DetailPage> {
                       title: Text(
                         product.name,
                         style: TextStyle(
-                          fontSize: ScreenUtil().setSp(19),
+                          fontSize: ScreenUtil().setSp(17),
                         ),
                       ),
                       subtitle: Column(
@@ -126,14 +126,14 @@ class _DetailPageState extends State<DetailPage> {
                           Text(
                             product.description,
                             style: TextStyle(
-                              fontSize: ScreenUtil().setSp(17),
+                              fontSize: ScreenUtil().setSp(16),
                             ),
                           ),
                           SizedBox(height: ScreenUtil().setHeight(5)),
                           Text(
                             "€ " + product.price.toStringAsFixed(2),
                             style: TextStyle(
-                              fontSize: ScreenUtil().setSp(18),
+                              fontSize: ScreenUtil().setSp(17),
                               color: widget.sbColor,
                             ),
                           )

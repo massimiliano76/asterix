@@ -1,3 +1,5 @@
+import 'package:asterix/models/Local/TimeTables.dart';
+
 class LocalInfo {
   final String name;
   final String email;
@@ -10,6 +12,7 @@ class LocalInfo {
   final String facebookLink;
   final String instagramLink;
   final String mapLocation;
+  final TimeTables times;
 
   LocalInfo(
     this.name,
@@ -23,6 +26,7 @@ class LocalInfo {
     this.facebookLink,
     this.instagramLink,
     this.mapLocation,
+    this.times,
   );
 
   LocalInfo.fromJson(Map<String, dynamic> json)
@@ -36,7 +40,8 @@ class LocalInfo {
         phoneNumber = json['phone'],
         facebookLink = json['facebook'],
         instagramLink = json['instagram'],
-        mapLocation = json['maps'];
+        mapLocation = json['maps'],
+        times = TimeTables.fromJson(json['timetables']);
 
   @override
   String toString() {

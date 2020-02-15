@@ -45,7 +45,7 @@ class SingleCategory extends StatelessWidget {
                     style: TextStyle(
                       color: Color(0xDDf5f5f5),
                       fontWeight: FontWeight.w500,
-                      fontSize: ScreenUtil().setSp(18),
+                      fontSize: ScreenUtil().setSp(16),
                     ),
                   ),
                   SizedBox(
@@ -55,7 +55,7 @@ class SingleCategory extends StatelessWidget {
                     categoryModel.subtitle,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: ScreenUtil().setSp(21),
+                      fontSize: ScreenUtil().setSp(19),
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -73,8 +73,9 @@ class SingleCategory extends StatelessWidget {
                       Matrix4.rotationY(categoryModel.rotate ? math.pi : 0),
                   child: Image.network(
                     categoryModel.url,
-                    width:
-                        ScreenUtil().setWidth(categoryModel.widthImage ?? 140),
+                    width: ScreenUtil().setWidth(
+                      categoryModel.widthImage ?? 140,
+                    ),
                   ),
                 ),
               ),

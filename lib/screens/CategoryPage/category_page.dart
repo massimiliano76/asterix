@@ -22,12 +22,6 @@ class _CategoryPageState extends State<CategoryPage> {
     products = getProducts();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    setStatusBarColorYellow();
-  }
-
   Future<Map<String, List<Product>>> getProducts() async {
     Map<String, List<Product>> list = await CategoryNetwork.getProducts();
     return list;
@@ -163,7 +157,7 @@ class _CategoryPageState extends State<CategoryPage> {
                         "Categorie",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: ScreenUtil().setSp(26),
+                          fontSize: ScreenUtil().setSp(24),
                           fontWeight: FontWeight.w600,
                         ),
                       ),

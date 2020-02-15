@@ -1,6 +1,7 @@
 import 'package:asterix/components/drawer_item.dart';
 import 'package:asterix/screens/CategoryPage/category_page.dart';
 import 'package:asterix/screens/HomePage/home_page.dart';
+import 'package:asterix/screens/InfoLocalPage/info_local_page.dart';
 import 'package:asterix/screens/LoginPage/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,6 +51,7 @@ class CustomDrawer extends StatelessWidget {
             DrawerItem(
               icon: Icons.location_on,
               title: "Ristorante",
+              page: InfoLocalPage(),
             ),
             DrawerItem(
               icon: Icons.person,

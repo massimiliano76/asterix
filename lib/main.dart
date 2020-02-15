@@ -47,6 +47,7 @@ class _AsterixState extends State<Asterix> {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          fontFamily: "Poppins",
           primaryColor: Color(0xFFFFB818),
           accentColor: Color(0xFF007625),
           cardColor: Colors.white,
@@ -54,6 +55,9 @@ class _AsterixState extends State<Asterix> {
             color: Color(0xFF707070),
           ),
           textTheme: TextTheme(
+            body1: TextStyle(
+              color: Color(0xFF7F7E7F),
+            ),
             title: TextStyle(
               color: Color(0xFF212115),
             ),

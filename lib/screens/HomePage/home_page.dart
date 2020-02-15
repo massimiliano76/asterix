@@ -38,8 +38,8 @@ class _HomePageState extends State<HomePage> {
           "Impossibile resistere",
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.title.copyWith(
-                fontWeight: FontWeight.bold,
-                fontSize: ScreenUtil().setSp(23),
+                fontWeight: FontWeight.w500,
+                fontSize: ScreenUtil().setSp(21),
               ),
         ),
         SizedBox(
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.title.copyWith(
                 fontWeight: FontWeight.normal,
-                fontSize: ScreenUtil().setSp(17),
+                fontSize: ScreenUtil().setSp(15),
               ),
         ),
         SizedBox(
@@ -60,7 +60,10 @@ class _HomePageState extends State<HomePage> {
           child: Text(
             ">>>",
             textAlign: TextAlign.center,
-            style: TextStyle(color: Theme.of(context).accentColor),
+            style: TextStyle(
+              color: Theme.of(context).accentColor,
+              fontSize: ScreenUtil().setSp(16),
+            ),
           ),
           onTap: () {
             print(">>> Pressed");

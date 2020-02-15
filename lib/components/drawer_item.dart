@@ -24,7 +24,10 @@ class DrawerItem extends StatelessWidget {
           ),
           title: Text(
             title,
-            style: TextStyle(fontSize: ScreenUtil().setSp(18)),
+            style: TextStyle(
+              fontSize: ScreenUtil().setSp(16),
+              fontWeight: FontWeight.w500,
+            ),
           ),
           onTap: () {
             page != null

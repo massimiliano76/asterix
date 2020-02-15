@@ -130,7 +130,7 @@ class DetailProductPage extends StatelessWidget {
                         Text(
                           "Ingredienti",
                           style: TextStyle(
-                            fontSize: ScreenUtil().setSp(18),
+                            fontSize: ScreenUtil().setSp(16),
                           ),
                         ),
                         ColumnBuilder(
@@ -148,10 +148,14 @@ class DetailProductPage extends StatelessWidget {
                         ),
                         //List
 
+                        SizedBox(
+                          height: ScreenUtil().setHeight(15),
+                        ),
+
                         Text(
                           "Aggiunzioni",
                           style: TextStyle(
-                            fontSize: ScreenUtil().setSp(18),
+                            fontSize: ScreenUtil().setSp(16),
                           ),
                         ),
                         ColumnBuilder(

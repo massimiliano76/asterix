@@ -30,21 +30,24 @@ class GridCard extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     "Accedi ad un mondo di offerte",
-                    style: Theme.of(context).textTheme.title,
+                    style: Theme.of(context).textTheme.title.copyWith(
+                          fontWeight: FontWeight.w500,
+                          fontSize: ScreenUtil().setSp(17),
+                        ),
                   ),
                   isLong
                       ? Text(
                           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin volutpat consequat bibendum",
                           style: Theme.of(context).textTheme.subtitle.copyWith(
                                 fontWeight: FontWeight.normal,
-                                fontSize: ScreenUtil().setSp(16),
+                                fontSize: ScreenUtil().setSp(14),
                               ),
                         )
                       : Text(
                           "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                           style: Theme.of(context).textTheme.subtitle.copyWith(
                                 fontWeight: FontWeight.normal,
-                                fontSize: ScreenUtil().setSp(16),
+                                fontSize: ScreenUtil().setSp(14),
                               ),
                         ),
                 ],
