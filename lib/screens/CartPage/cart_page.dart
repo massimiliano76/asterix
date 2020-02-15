@@ -118,7 +118,9 @@ class _CartPageState extends State<CartPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => CategoryPage(),
+                                builder: (_) => CategoryPage(
+                                  prevColor: Theme.of(context).accentColor,
+                                ),
                               ),
                             );
                           },

@@ -8,6 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoryPage extends StatefulWidget {
+  final Color prevColor;
+
+  const CategoryPage({Key key, this.prevColor}) : super(key: key);
+
   @override
   _CategoryPageState createState() => _CategoryPageState();
 }
@@ -25,7 +29,7 @@ class _CategoryPageState extends State<CategoryPage> {
   @override
   void dispose() {
     super.dispose();
-    setStatusBarColorYellow();
+    setStatusBarColor(widget.prevColor);
   }
 
   Future<Map<String, List<Product>>> getProducts() async {

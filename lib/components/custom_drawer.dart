@@ -42,7 +42,9 @@ class CustomDrawer extends StatelessWidget {
             DrawerItem(
               icon: Icons.fastfood,
               title: "Componi",
-              page: CategoryPage(),
+              page: CategoryPage(
+                prevColor: Theme.of(context).primaryColor,
+              ),
             ),
             DrawerItem(
               icon: Icons.local_dining,

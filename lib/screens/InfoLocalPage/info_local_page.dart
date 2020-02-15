@@ -51,7 +51,7 @@ class InfoLocalPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       Text(
-                        'FuddApp',
+                        'Paninoteca Asterix',
                         style: TextStyle(
                           letterSpacing: 1,
                           fontSize: ScreenUtil().setSp(28),
@@ -62,7 +62,7 @@ class InfoLocalPage extends StatelessWidget {
                       ),
                       LineSeparation(
                         margin: EdgeInsets.only(
-                          right: ScreenUtil().setWidth(300),
+                          right: ScreenUtil().setWidth(200),
                         ),
                       ),
                       SizedBox(
