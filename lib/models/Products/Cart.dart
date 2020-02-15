@@ -1,4 +1,5 @@
 import 'package:asterix/models/Products/CartProduct.dart';
+import 'package:flutter/foundation.dart';
 
 class Cart {
   final List<CartProduct> products = [];
@@ -9,7 +10,7 @@ class Cart {
     int index = products.indexOf(findProduct);
     products[index].incrementQuantity();
 
-    totalPrice += findProduct.product.price;
+    totalPrice += findProduct.singlePrice;
     totalProduct++;
   }
 
@@ -20,7 +21,7 @@ class Cart {
       int index = products.indexOf(product);
       products[index].decrementQuantity();
     }
-    totalPrice -= product.product.price;
+    totalPrice -= product.singlePrice;
     totalProduct--;
   }
 
@@ -28,7 +29,9 @@ class Cart {
     try {
       //index of the element already present
       int index = products.indexOf(
-        products.firstWhere((el) => el.product.id == newProduct.product.id),
+        products.firstWhere(
+          (el) => listEquals(el.ingredients, newProduct.ingredients),
+        ),
       );
       products[index].incrementQuantity(newProduct.quantity);
     } catch (e) {

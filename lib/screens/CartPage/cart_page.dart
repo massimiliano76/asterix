@@ -143,7 +143,7 @@ class _CartPageState extends State<CartPage> {
                           child: Column(
                             children: <Widget>[
                               Text(
-                                product.description,
+                                cartProduct.ingredientsText,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: ScreenUtil().setSp(16),
