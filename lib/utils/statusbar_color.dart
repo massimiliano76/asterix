@@ -22,3 +22,7 @@ setStatusBarColor(Color color) async {
     animate: true,
   );
 }
+
+setSBTextColor(bool status) async {
+  await FlutterStatusbarcolor.setStatusBarWhiteForeground(status);
+}

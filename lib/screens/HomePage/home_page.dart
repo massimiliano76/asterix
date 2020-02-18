@@ -25,10 +25,8 @@ class _HomePageState extends State<HomePage> {
         Container(
           margin: EdgeInsets.only(top: ScreenUtil().setHeight(60)),
           width: ScreenUtil().setHeight(200),
-          child: FittedBox(
-            child: Image.asset(
-              "assets/58824846e81acb96424ffaad.png",
-            ),
+          child: Image.asset(
+            "assets/58824846e81acb96424ffaad.png",
           ),
         ),
         SizedBox(

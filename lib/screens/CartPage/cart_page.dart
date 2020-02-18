@@ -1,8 +1,7 @@
+import 'package:asterix/components/custom_safe_area.dart';
 import 'package:asterix/models/Products/CartProduct.dart';
 import 'package:asterix/models/Products/Product.dart';
-import 'package:asterix/redux/actions/Product/product_action.dart';
 import 'package:asterix/redux/store/AppState.dart';
-import 'package:asterix/screens/CartPage/components/circle_button.dart';
 import 'package:asterix/screens/CartPage/components/product_card.dart';
 import 'package:asterix/screens/CategoryPage/category_page.dart';
 import 'package:asterix/utils/statusbar_color.dart';
@@ -35,61 +34,61 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: StoreConnector<AppState, Store<AppState>>(
-        converter: (store) => store,
-        builder: (_, store) {
-          List<CartProduct> products = store.state.cart.products;
-          bool isCartEmpty = store.state.cart.totalProduct == 0;
-          return Scaffold(
-            appBar: AppBar(
-              actions: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(
-                    right: ScreenUtil().setWidth(15),
-                  ),
-                  child: Center(
-                    child: Text(
-                      store.state.cart.totalPrice.toStringAsFixed(2) + " €",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: ScreenUtil().setSp(20),
-                      ),
+    return StoreConnector<AppState, Store<AppState>>(
+      converter: (store) => store,
+      builder: (_, store) {
+        List<CartProduct> products = store.state.cart.products;
+        bool isCartEmpty = store.state.cart.totalProduct == 0;
+        return Scaffold(
+          appBar: AppBar(
+            actions: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(
+                  right: ScreenUtil().setWidth(15),
+                ),
+                child: Center(
+                  child: Text(
+                    store.state.cart.totalPrice.toStringAsFixed(2) + " €",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: ScreenUtil().setSp(20),
                     ),
                   ),
-                )
-              ],
-              title: Text(
-                "Carrello",
-                style: TextStyle(
-                  color: Colors.white,
                 ),
-              ),
-              iconTheme: IconThemeData(
+              )
+            ],
+            title: Text(
+              "Carrello",
+              style: TextStyle(
                 color: Colors.white,
               ),
-              backgroundColor: Theme.of(context).accentColor,
             ),
-            floatingActionButton: Builder(
-              builder: (context) {
-                if (isCartEmpty) {
-                  return SizedBox.shrink();
-                }
+            iconTheme: IconThemeData(
+              color: Colors.white,
+            ),
+            backgroundColor: Theme.of(context).accentColor,
+          ),
+          floatingActionButton: Builder(
+            builder: (context) {
+              if (isCartEmpty) {
+                return SizedBox.shrink();
+              }
 
-                return FloatingActionButton.extended(
-                  label: Text("EFFETTUA ACQUISTO"),
-                  icon: Icon(
-                    Icons.fastfood,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {},
-                );
-              },
-            ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
-            body: Builder(
+              return FloatingActionButton.extended(
+                label: Text("EFFETTUA ACQUISTO"),
+                icon: Icon(
+                  Icons.fastfood,
+                  color: Colors.white,
+                ),
+                onPressed: () {},
+              );
+            },
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          body: SafeArea(
+            child: Builder(
               builder: (context) {
                 if (isCartEmpty) {
                   return Center(
@@ -147,9 +146,9 @@ class _CartPageState extends State<CartPage> {
                 );
               },
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

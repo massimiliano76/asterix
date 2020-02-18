@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:asterix/components/cart_badge.dart';
+import 'package:asterix/components/custom_safe_area.dart';
 import 'package:asterix/models/Products/Category.dart';
 import 'package:asterix/models/Products/Product.dart';
 import 'package:asterix/network/CategoryPage/category_network.dart';
@@ -88,9 +91,9 @@ class _CategoryPageState extends State<CategoryPage> {
       ),
     ];
 
-    return SafeArea(
-      child: Scaffold(
-        body: Stack(
+    return Scaffold(
+      body: SafeArea(
+        child: Stack(
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
@@ -154,7 +157,9 @@ class _CategoryPageState extends State<CategoryPage> {
                     children: <Widget>[
                       GestureDetector(
                         child: Icon(
-                          Icons.arrow_back,
+                          Platform.isAndroid
+                              ? Icons.arrow_back
+                              : Icons.arrow_back_ios,
                           color: Colors.white,
                           size: ScreenUtil().setWidth(28),
                         ),

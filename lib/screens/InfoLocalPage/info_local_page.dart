@@ -24,20 +24,20 @@ class InfoLocalPage extends StatelessWidget {
       }
     }
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          iconTheme: IconThemeData(
+    return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        title: Text(
+          "Ristorante",
+          style: TextStyle(
             color: Colors.white,
           ),
-          title: Text(
-            "Ristorante",
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
         ),
-        body: Padding(
+      ),
+      body: SafeArea(
+        child: Padding(
           padding: EdgeInsets.all(
             ScreenUtil().setHeight(20),
           ),

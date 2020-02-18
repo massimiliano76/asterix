@@ -18,26 +18,29 @@ class DetailProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: StoreConnector<AppState, Store<AppState>>(
-        converter: (store) => store,
-        builder: (context, store) {
-          List<Ingredient> addons = store.state.addons;
-          CartProduct product = store.state.currentlySelected;
-          int quantity = store.state.currentlySelected.quantity;
-          return Scaffold(
-            appBar: AppBar(
-              actions: <Widget>[
-                CartBadge(
-                  mainColor: mainColor,
-                )
-              ],
-              backgroundColor: mainColor,
-              iconTheme: IconThemeData(
-                color: Colors.white,
-              ),
+    return StoreConnector<AppState, Store<AppState>>(
+      converter: (store) => store,
+      builder: (context, store) {
+        List<Ingredient> addons = store.state.addons;
+        CartProduct product = store.state.currentlySelected;
+        int quantity = store.state.currentlySelected.quantity;
+        return Scaffold(
+          appBar: AppBar(
+            actions: <Widget>[
+              CartBadge(
+                mainColor: mainColor,
+              )
+            ],
+            backgroundColor: mainColor,
+            iconTheme: IconThemeData(
+              color: Colors.white,
             ),
-            floatingActionButton: FloatingActionButton.extended(
+          ),
+          floatingActionButton: Padding(
+            padding: EdgeInsets.only(
+              bottom: ScreenUtil().setHeight(20),
+            ),
+            child: FloatingActionButton.extended(
               backgroundColor: mainColor,
               label: Text("AGGIUNGI AL CARRELLO"),
               icon: Icon(Icons.add_shopping_cart),
@@ -46,9 +49,11 @@ class DetailProductPage extends StatelessWidget {
                 Navigator.pop(context);
               },
             ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
-            body: Padding(
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          body: SafeArea(
+            child: Padding(
               padding: EdgeInsets.only(top: ScreenUtil().setHeight(20)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -186,9 +191,9 @@ class DetailProductPage extends StatelessWidget {
                 ],
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

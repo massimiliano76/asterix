@@ -14,11 +14,13 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     setStatusBarColor(Colors.white);
+    setSBTextColor(false);
   }
 
   @override
   void dispose() {
     super.dispose();
+    setSBTextColor(true);
     setStatusBarColorYellow();
   }
 
@@ -26,62 +28,65 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text("Accedi"),
         backgroundColor: Colors.white,
       ),
-      body: ListView(
-        padding: EdgeInsets.symmetric(
-          horizontal: ScreenUtil().setWidth(30),
-          vertical: ScreenUtil().setHeight(15),
-        ),
-        children: <Widget>[
-          Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Email'),
-                ),
-                SizedBox(
-                  height: ScreenUtil().setHeight(17),
-                ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Password'),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    top: ScreenUtil().setHeight(25),
-                    bottom: ScreenUtil().setHeight(20),
+      body: SafeArea(
+        child: ListView(
+          padding: EdgeInsets.symmetric(
+            horizontal: ScreenUtil().setWidth(30),
+            vertical: ScreenUtil().setHeight(15),
+          ),
+          children: <Widget>[
+            Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  TextFormField(
+                    decoration: InputDecoration(labelText: 'Email'),
                   ),
-                  child: Text(
-                    "Hai dimenticato la tua password?",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      decoration: TextDecoration.underline,
+                  SizedBox(
+                    height: ScreenUtil().setHeight(17),
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(labelText: 'Password'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: ScreenUtil().setHeight(25),
+                      bottom: ScreenUtil().setHeight(20),
+                    ),
+                    child: Text(
+                      "Hai dimenticato la tua password?",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Theme.of(context).accentColor,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
-                ),
-                GreenButton(
-                  onTap: () {},
-                  label: "Accedi",
-                ),
-              ],
+                  GreenButton(
+                    onTap: () {},
+                    label: "Accedi",
+                  ),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: ScreenUtil().setHeight(15),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: ScreenUtil().setHeight(15),
+              ),
+              child: Text(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacinia, nisi eu ultricies faucibus, purus felis interdum tortor, quis sollicitudin ipsum nunc at urna. In ipsum odio, tristique cursus convallis eget, efficitur vel diam",
+              ),
             ),
-            child: Text(
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacinia, nisi eu ultricies faucibus, purus felis interdum tortor, quis sollicitudin ipsum nunc at urna. In ipsum odio, tristique cursus convallis eget, efficitur vel diam",
+            GreenButton(
+              onTap: () {},
+              label: "Crea un account",
             ),
-          ),
-          GreenButton(
-            onTap: () {},
-            label: "Crea un account",
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

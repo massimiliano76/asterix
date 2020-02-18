@@ -1,5 +1,6 @@
 import 'package:asterix/components/cart_badge.dart';
 import 'package:asterix/components/custom_drawer.dart';
+import 'package:asterix/components/custom_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -16,14 +17,14 @@ class _LayoutScaffoldState extends State<LayoutScaffold> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
-        key: scaffoldKey,
-        drawer: CustomDrawer(
-          selected: widget.selected,
-        ),
-        body: Stack(
+    return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
+      key: scaffoldKey,
+      drawer: CustomDrawer(
+        selected: widget.selected,
+      ),
+      body: SafeArea(
+        child: Stack(
           children: <Widget>[
             ListView(
               shrinkWrap: true,
