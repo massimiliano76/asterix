@@ -89,6 +89,22 @@ class _CategoryPageState extends State<CategoryPage> {
         bottomImage: -5,
         rightImage: 30,
       ),
+      CategoryModel(
+        title: "Componi",
+        subtitle: "Componi il tuo\npanino",
+        url:
+            "https://www.stickpng.com/assets/images/5882482de81acb96424ffaac.png",
+        mainColor: Color(0xFF1CA10E),
+        backgroundColor: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Color(0xFF1CA10E), Color(0xFF4CDA61)],
+          tileMode: TileMode.repeated,
+        ),
+        widthImage: 175,
+        bottomImage: 7,
+        rightImage: 30,
+      ),
     ];
 
     return Scaffold(

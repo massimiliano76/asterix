@@ -1,9 +1,17 @@
 import 'dart:math' as math;
+import 'package:asterix/models/Products/CartProduct.dart';
 import 'package:asterix/models/Products/Category.dart';
+import 'package:asterix/models/Products/Ingredient.dart';
 import 'package:asterix/models/Products/Product.dart';
+import 'package:asterix/redux/actions/Cart/cart_actions.dart';
+import 'package:asterix/redux/store/AppState.dart';
 import 'package:asterix/screens/DetailPage/detail_page.dart';
+import 'package:asterix/screens/DetailProductPage/detail_product_page.dart';
+import 'package:asterix/utils/statusbar_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:redux/redux.dart';
 
 class SingleCategory extends StatelessWidget {
   final CategoryModel categoryModel;
@@ -83,19 +91,41 @@ class SingleCategory extends StatelessWidget {
           ],
         ),
       ),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => DetailPage(
-              url: categoryModel.url,
-              gradient: categoryModel.backgroundColor,
-              rotate: categoryModel.rotate,
-              sbColor: categoryModel.mainColor,
-              products: products,
+      onTap: () async {
+        if (categoryModel.title == "Componi") {
+          CartProduct createSandwich = CartProduct(
+              product: Product(
+            category: "Componi",
+            price: 0.00,
+            ingredients: <Ingredient>[],
+            name: "Panino",
+          ));
+          Store<AppState> store = StoreProvider.of<AppState>(context);
+          store.dispatch(SelectProduct(createSandwich));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => DetailProductPage(
+                mainColor: categoryModel.mainColor,
+                isCreating: true,
+              ),
             ),
-          ),
-        );
+          );
+          await setStatusBarColor(categoryModel.mainColor);
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => DetailPage(
+                url: categoryModel.url,
+                gradient: categoryModel.backgroundColor,
+                rotate: categoryModel.rotate,
+                sbColor: categoryModel.mainColor,
+                products: products,
+              ),
+            ),
+          );
+        }
       },
     );
   }

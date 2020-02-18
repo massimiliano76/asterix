@@ -10,8 +10,8 @@ class CartProduct {
   List<Ingredient> ingredients;
   String ingredientsText;
 
-  CartProduct(this.product)
-      : ingredients = List.from(product.ingredients),
+  CartProduct({this.product})
+      : ingredients = sortIngredients(product.ingredients),
         ingredientsText = listToString(product.ingredients),
         finalPrice = product.price,
         quantity = 1,
@@ -32,8 +32,12 @@ class CartProduct {
 
   addIngredient(Ingredient newIng) {
     //add to ingredient list
-    this.ingredients = [...ingredients, newIng];
-    ingredientsText += ", ${newIng.name}";
+    this.ingredients = sortIngredients([...ingredients, newIng]);
+    if (ingredientsText == "") {
+      ingredientsText = newIng.name;
+    } else {
+      ingredientsText += ", ${newIng.name}";
+    }
 
     //If it is a basic ingredient, do not make any price changes
     if (newIng.isAddon) {
@@ -63,6 +67,13 @@ class CartProduct {
   }
 }
 
+List<Ingredient> sortIngredients(List<Ingredient> ingredient) {
+  ingredient.sort((Ingredient a, Ingredient b) {
+    return a.name.compareTo(b.name);
+  });
+  return List.from(ingredient);
+}
+
 listToString(List<Ingredient> ingredients) {
   StringBuffer ing = StringBuffer();
   if (ingredients.isNotEmpty) {
@@ -71,8 +82,7 @@ listToString(List<Ingredient> ingredients) {
     });
     return removeLastComma(ing);
   } else {
-    ing.write("");
-    return ing;
+    return "";
   }
 }
 

@@ -147,7 +147,7 @@ class _DetailPageState extends State<DetailPage> {
                       onTap: () {
                         store.dispatch(
                           SelectProduct(
-                            CartProduct(product),
+                            CartProduct(product: product),
                           ),
                         );
                         Navigator.push(

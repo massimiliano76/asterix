@@ -6,15 +6,32 @@ import 'package:asterix/redux/actions/Product/product_action.dart';
 import 'package:asterix/redux/store/AppState.dart';
 import 'package:asterix/screens/DetailProductPage/components/single_ingredient.dart';
 import 'package:asterix/utils/column_builder.dart';
+import 'package:asterix/utils/statusbar_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:redux/redux.dart';
 
-class DetailProductPage extends StatelessWidget {
+class DetailProductPage extends StatefulWidget {
   final Color mainColor;
+  final bool isCreating;
 
-  const DetailProductPage({Key key, this.mainColor}) : super(key: key);
+  const DetailProductPage({
+    Key key,
+    this.mainColor,
+    this.isCreating = false,
+  }) : super(key: key);
+
+  @override
+  _DetailProductPageState createState() => _DetailProductPageState();
+}
+
+class _DetailProductPageState extends State<DetailProductPage> {
+  @override
+  void dispose() {
+    super.dispose();
+    if (widget.isCreating) setStatusBarColorGreen();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +45,10 @@ class DetailProductPage extends StatelessWidget {
           appBar: AppBar(
             actions: <Widget>[
               CartBadge(
-                mainColor: mainColor,
+                mainColor: widget.mainColor,
               )
             ],
-            backgroundColor: mainColor,
+            backgroundColor: widget.mainColor,
             iconTheme: IconThemeData(
               color: Colors.white,
             ),
@@ -41,11 +58,13 @@ class DetailProductPage extends StatelessWidget {
               bottom: ScreenUtil().setHeight(20),
             ),
             child: FloatingActionButton.extended(
-              backgroundColor: mainColor,
+              backgroundColor: widget.mainColor,
               label: Text("AGGIUNGI AL CARRELLO"),
               icon: Icon(Icons.add_shopping_cart),
               onPressed: () {
-                store.dispatch(AddProduct(product));
+                if (store.state.currentlySelected.finalPrice != 0.00) {
+                  store.dispatch(AddProduct(product));
+                }
                 Navigator.pop(context);
               },
             ),
@@ -66,25 +85,33 @@ class DetailProductPage extends StatelessWidget {
                       fontSize: ScreenUtil().setSp(22),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: ScreenUtil().setHeight(10),
-                      bottom: ScreenUtil().setHeight(10),
-                    ),
-                    child: Text(
-                      product.product.description,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: ScreenUtil().setSp(16),
-                      ),
-                    ),
+                  Builder(
+                    builder: (context) {
+                      if (product.product.description != null) {
+                        return Padding(
+                          padding: EdgeInsets.only(
+                            top: ScreenUtil().setHeight(10),
+                            bottom: ScreenUtil().setHeight(10),
+                          ),
+                          child: Text(
+                            product.product.description,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: ScreenUtil().setSp(16),
+                            ),
+                          ),
+                        );
+                      }
+
+                      return SizedBox.shrink();
+                    },
                   ),
                   Text(
                     "€ " + product.finalPrice.toStringAsFixed(2),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: ScreenUtil().setSp(22),
-                      color: mainColor,
+                      color: widget.mainColor,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -106,7 +133,7 @@ class DetailProductPage extends StatelessWidget {
                               InkWell(
                                 child: Icon(
                                   Icons.remove,
-                                  color: mainColor,
+                                  color: widget.mainColor,
                                   size: ScreenUtil().setWidth(35),
                                 ),
                                 onTap: () {
@@ -122,7 +149,7 @@ class DetailProductPage extends StatelessWidget {
                               InkWell(
                                 child: Icon(
                                   Icons.add,
-                                  color: mainColor,
+                                  color: widget.mainColor,
                                   size: ScreenUtil().setWidth(35),
                                 ),
                                 onTap: () {
@@ -132,11 +159,19 @@ class DetailProductPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Text(
-                          "Ingredienti",
-                          style: TextStyle(
-                            fontSize: ScreenUtil().setSp(16),
-                          ),
+                        Builder(
+                          builder: (context) {
+                            if (product.product.ingredients.isNotEmpty) {
+                              return Text(
+                                "Ingredienti",
+                                style: TextStyle(
+                                  fontSize: ScreenUtil().setSp(16),
+                                ),
+                              );
+                            }
+
+                            return SizedBox.shrink();
+                          },
                         ),
                         ColumnBuilder(
                           itemCount: product.product.ingredients.length,
@@ -146,7 +181,7 @@ class DetailProductPage extends StatelessWidget {
                             return SingleIngredient(
                               ingredient: ingredient,
                               isAddon: false,
-                              mainColor: mainColor,
+                              mainColor: widget.mainColor,
                               store: store,
                             );
                           },
@@ -178,7 +213,7 @@ class DetailProductPage extends StatelessWidget {
                               return SingleIngredient(
                                 ingredient: ingredient,
                                 isAddon: true,
-                                mainColor: mainColor,
+                                mainColor: widget.mainColor,
                                 store: store,
                               );
                             }
