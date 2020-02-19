@@ -1,6 +1,5 @@
 import 'package:asterix/components/cart_badge.dart';
 import 'package:asterix/components/custom_drawer.dart';
-import 'package:asterix/components/custom_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

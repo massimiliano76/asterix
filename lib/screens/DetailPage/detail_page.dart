@@ -1,6 +1,5 @@
 import 'dart:math' as math;
 import 'package:asterix/components/cart_badge.dart';
-import 'package:asterix/components/custom_safe_area.dart';
 import 'package:asterix/models/Products/CartProduct.dart';
 import 'package:asterix/models/Products/Product.dart';
 import 'package:asterix/redux/actions/Cart/cart_actions.dart';

@@ -1,4 +1,3 @@
-import 'package:asterix/components/custom_safe_area.dart';
 import 'package:asterix/models/Products/CartProduct.dart';
 import 'package:asterix/models/Products/Product.dart';
 import 'package:asterix/redux/store/AppState.dart';

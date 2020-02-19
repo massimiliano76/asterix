@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
           margin: EdgeInsets.only(top: ScreenUtil().setHeight(60)),
           width: ScreenUtil().setHeight(200),
           child: Image.asset(
-            "assets/58824846e81acb96424ffaad.png",
+            "assets/sandwich.png",
           ),
         ),
         SizedBox(

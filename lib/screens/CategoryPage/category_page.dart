@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:asterix/components/cart_badge.dart';
-import 'package:asterix/components/custom_safe_area.dart';
 import 'package:asterix/models/Products/Category.dart';
 import 'package:asterix/models/Products/Product.dart';
 import 'package:asterix/network/CategoryPage/category_network.dart';
